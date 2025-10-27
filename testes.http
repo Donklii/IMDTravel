@@ -1,0 +1,25 @@
+### Testar compra completa (IMDTravel)
+POST http://localhost:3001/buyTicket
+Content-Type: application/json
+
+{
+  "flight": "AZ123",
+  "day": "2025-11-01",
+  "user": "usuario123"
+}
+
+### Testar AirlinesHub
+GET http://localhost:3002/flight?flight=AZ123&day=2025-11-01
+
+### Testar Exchange
+GET http://localhost:3003/convert
+
+### Testar Fidelity
+POST http://localhost:3004/bonus
+Content-Type: application/json
+
+{
+  "user": "usuario123",
+  "bonus": 250
+}
+

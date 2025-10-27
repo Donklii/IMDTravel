@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  imdtravel:
+    build: ./IMDTravel
+    ports:
+      - "3001:3001"
+    depends_on:
+      - airlineshub
+      - exchange
+      - fidelity
+
+  airlineshub:
+    build: ./AirlinesHub
+    ports:
+      - "3002:3002"
+
+  exchange:
+    build: ./Exchange
+    ports:
+      - "3003:3003"
+
+  fidelity:
+    build: ./Fidelity
+    ports:
+      - "3004:3004"
