@@ -1,19 +1,19 @@
 # IMDTravel – Projeto de Tolerância a Falhas
 Projeto de tópicos especiais em egenharia de software IV (Tolerância a Falhas em Sistemas de Software) - Unidade 2
 
+## 🎯 Descrição
+Projeto avaliativo especificado na disciplina de TÓPICOS ESPECIAIS EM ENGENHARIA DE SOFTWARE IV. Este projeto implementa uma versão simplificada de um sistema de compra de passagens aéreas (**IMDTravel**), dividido em **microserviços** independentes que se comunicam via **REST API**.  
+Cada serviço é executado em um **container Docker** separado e orquestrado por **Docker Compose**.
+
+O sistema foi desenvolvido em **JavaScript (Node.js + Express)**.
+
 ## 🧾 Resumo
 
 - **Linguagem:** JavaScript (Node.js)  
 - **Framework:** Express.js  
 - **Comunicação:** REST (Axios)  
 - **Containers:** Docker / Docker Compose  
-- **Testes:** REST Client (VS Code)  
-
-## 🎯 Descrição
-Projeto avaliativo especificado na disciplina de TÓPICOS ESPECIAIS EM ENGENHARIA DE SOFTWARE IV. Este projeto implementa uma versão simplificada de um sistema de compra de passagens aéreas (**IMDTravel**), dividido em **microserviços** independentes que se comunicam via **REST API**.  
-Cada serviço é executado em um **container Docker** separado e orquestrado por **Docker Compose**.
-
-O sistema foi desenvolvido em **JavaScript (Node.js + Express)**.
+- **Testes:** REST Client (VS Code)
 
 ---
 
