@@ -39,25 +39,22 @@ Cada serviço contém:
 
 ### ▶️ Pré-requisitos
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- [VS Code](https://code.visualstudio.com/) com extensão **REST Client** (opcional)
 - (Opcional) Node.js instalado localmente para testes fora do container
+- (Opcional) [VS Code](https://code.visualstudio.com/)
 - (Opcional) Extensão REST Client para o VSCode
 
 ---
 
 ### 🐋 Executando com Docker Compose
 
-1. Abra o **Docker Desktop** e aguarde até aparecer “Docker Desktop is running”.
+1. Abra o **Docker Desktop**.
 2. No terminal, dentro da pasta raiz do projeto, execute:
 
    ```bash
    docker compose up --build
    ```
 
-3. O Docker irá:
-   - Construir os 4 serviços.
-   - Executar todos automaticamente.
-   - Mostrar logs no terminal, como:
+3. A saída esperada no terminal é:
      ```
      🟢 IMDTravel rodando na porta 3001
      🟢 AirlinesHub rodando na porta 3002
