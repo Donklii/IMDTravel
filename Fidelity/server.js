@@ -9,6 +9,11 @@ app.get("/", (req, res) => {
 
 // Endpoint para registrar bônus (Request 4)
 app.post("/bonus", (req, res) => {
+    if (Math.random() < 0.02) {
+    console.log("💥  Fidelity crashou 💥");
+    process.exit(1); // encerra o container
+  }
+
   const { user, bonus } = req.body;
 
   if (!user || bonus === undefined) {

@@ -18,6 +18,8 @@ app.post("/buyTicket", async (req, res) => {
   }
 
   try {
+    console.log(`${user} está comprando a passagem ${flight} para o dia ${day}`);
+
     // 1️⃣ Consultar o voo no AirlinesHub
     const flightResponse = await axios.get("http://airlineshub:3002/flight", { params: { flight, day } });
     const flightData = flightResponse.data;
@@ -52,7 +54,7 @@ app.post("/buyTicket", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Erro durante a compra:", error.message);
+    console.error(`Erro durante a compra de ${user}:`, error.message);
     res.status(500).json({ error: "Falha ao processar a compra." });
   }
 });
