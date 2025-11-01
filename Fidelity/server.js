@@ -20,7 +20,7 @@ app.post("/bonus", (req, res) => {
     return res.status(400).json({ error: "Parâmetros 'user' e 'bonus' são obrigatórios." });
   }
 
-  console.log(`Bônus de ${bonus} pontos enviado para o usuário ${user}.`);
+  console.log(`🎁 Bônus de ${bonus} pontos enviado para o usuário ${user}.`);
   res.status(200).json({ message: "Bônus aplicado com sucesso!" });
 });
 

@@ -2,8 +2,8 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 
 export let options = {
-  vus: 50, // número de usuários virtuais
-  duration: '50s', // tempo total do teste
+  vus: 10, // número de usuários virtuais
+  duration: '10s', // tempo total do teste
 };
 
 function gerarData() {
@@ -26,12 +26,16 @@ function gerarUserId() {
   return `user-${random}`;
 }
 
+function gerarToleranciaAhFalhas() {
+  return Math.random() >= 0.5? true : false
+}
 export default function () {
   const url = 'http://localhost:3001/buyTicket';
   const payload = JSON.stringify({
     flight: gerarVoo(),
     day: gerarData(),
-    user: gerarUserId()
+    user: gerarUserId(),
+    ft: gerarToleranciaAhFalhas(),
   });
 
   const params = { headers: { 'Content-Type': 'application/json' } };

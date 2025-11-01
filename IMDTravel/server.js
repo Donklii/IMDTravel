@@ -1,7 +1,15 @@
-const express = require("express");
-const axios = require("axios"); // para fazer requisições aos outros serviços
+import express from "express";
+import axios from "axios"; // para fazer requisições aos outros serviços
+import {
+  buscarVoo,
+  buscarTaxa,
+  venderPassagem,
+  bonificar
+} from "./RecuperacaoDeFalhas.js";
+
 const app = express();
 app.use(express.json());
+
 
 
 app.get("/", (req, res) => {
@@ -11,7 +19,7 @@ app.get("/", (req, res) => {
 
 // Endpoint principal - Request 0
 app.post("/buyTicket", async (req, res) => {
-  const { flight, day, user } = req.body;
+  const { flight, day, user, ft } = req.body;
 
   if (!flight || !day || !user) {
     return res.status(400).json({ error: "Parâmetros 'flight', 'day' e 'user' são obrigatórios." });
@@ -21,23 +29,20 @@ app.post("/buyTicket", async (req, res) => {
     console.log(`${user} está comprando a passagem ${flight} para o dia ${day}`);
 
     // 1️⃣ Consultar o voo no AirlinesHub
-    const flightResponse = await axios.get("http://airlineshub:3002/flight", { params: { flight, day } });
-    const flightData = flightResponse.data;
+    const flightData = await buscarVoo(flight, day, ft);
 
     // 2️⃣ Buscar taxa de câmbio no Exchange
-    const exchangeResponse = await axios.get("http://exchange:3003/convert");
-    const rate = exchangeResponse.data.rate;
+    const rate = await buscarTaxa(ft);
 
     // 3️⃣ Calcular valor final em reais
     const valueInReais = (flightData.value * rate).toFixed(2);
 
     // 4️⃣ Registrar a venda no AirlinesHub
-    const sellResponse = await axios.post("http://airlineshub:3002/sell", { flight, day });
-    const transactionId = sellResponse.data.transactionId;
+    const transactionId = await venderPassagem(flightData.flight, flightData.day, ft);
 
     // 5️⃣ Enviar bônus para o Fidelity
     const bonus = Math.round(flightData.value); // bônus é o valor em dólar arredondado
-    await axios.post("http://fidelity:3004/bonus", { user, bonus });
+    await bonificar(user, bonus, ft);
 
     // ✅ Resposta final
     res.status(200).json({

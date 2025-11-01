@@ -5,7 +5,8 @@ Content-Type: application/json
 {
   "flight": "AZ123",
   "day": "2025-11-01",
-  "user": "usuario123"
+  "user": "usuario123",
+  "ft": true
 }
 
 ### Testar AirlinesHub
