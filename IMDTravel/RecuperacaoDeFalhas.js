@@ -6,7 +6,7 @@ export async function buscarTaxa(tolerante) {
   if (!tolerante) {
     const response = await axios.get("http://exchange:3003/convert");
     const taxa = parseFloat(response.data.rate);
-    console.log(`💱 Taxa obtida (modo não tolerante): ${taxa.toFixed(2)}`);
+    console.log(`💱 Taxa obtida: ${taxa.toFixed(2)}`);
     return taxa;
   }
 
@@ -118,7 +118,6 @@ export async function bonificar(user, bonus, tolerante) {
 
   if (!tolerante) {
     await axios.post("http://fidelity:3004/bonus", { user, bonus});
-    console.log(`🎁 Bônus de ${bonus} enviado para ${user} (modo não tolerante)`);
     return;
   }
 
