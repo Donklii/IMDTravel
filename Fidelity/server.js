@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 // Endpoint para registrar bônus (Request 4)
 app.post("/bonus", (req, res) => {
     if (Math.random() < 0.02) {
-    console.log("💥  Fidelity crashou 💥");
+    console.log("\n\n💥  Fidelity crashou 💥\n\n");
     process.exit(1); // encerra o container
   }
 

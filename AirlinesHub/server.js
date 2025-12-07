@@ -49,7 +49,7 @@ app.post("/sell", async (req, res) => {
     // Estado saudável: 10% de chance de entrar em modo de falha por 10s
     if (Math.random() < 0.1) {
       fimDaFalha = momentoAtual + 10_000;
-      console.log("⚠️⏳ Ativando falha de tempo no /sell por 10s (aumentando latencia) ⚠️⏳");
+      console.log("\n\n⚠️⏳ Ativando falha de tempo no /sell por 10s (aumentando latencia) ⚠️⏳\n\n");
       
       await sleep(5000);
     }

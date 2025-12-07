@@ -40,6 +40,13 @@ app.post("/buyTicket", async (req, res) => {
     // 4️⃣ Registrar a venda no AirlinesHub
     const transactionId = await venderPassagem(flightData.flight, flightData.day, ft);
 
+    if (transactionId === 0) {
+      res.status(200).json({
+      message: "Compra falhou :( \n tente novamente mais tarde.",
+      });
+      return
+    }
+
     // 5️⃣ Enviar bônus para o Fidelity
     const bonus = Math.round(flightData.value); // bônus é o valor em dólar arredondado
     await bonificar(user, bonus, ft);
@@ -59,7 +66,7 @@ app.post("/buyTicket", async (req, res) => {
     });
 
   } catch (error) {
-    console.error(`Erro durante a compra de ${user}:`, error.message);
+    console.error(`☠️ Erro durante a compra de ${user}:`, error.message);
     res.status(500).json({ error: "Falha ao processar a compra." });
   }
 });

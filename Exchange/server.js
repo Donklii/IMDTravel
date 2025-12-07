@@ -19,7 +19,7 @@ app.get("/convert", async (req, res) => {
   } else {
     if (Math.random() < 0.1) {
       fimDaFalha = momentoAtual + 5_000;
-      console.log("⚠️❌  Falhando /convert  ❌⚠️");
+      console.log("\n\n⚠️❌  Falhando /convert  ❌⚠️\n\n");
      
       return res.status(500).json({ error: "Falha simulada no serviço de conversão" })
     }

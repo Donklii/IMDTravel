@@ -42,7 +42,7 @@ export async function buscarTaxa(tolerante) {
 
 export async function buscarVoo(flight, day, tolerante) {
   const maxTentativas = tolerante? 4 : 1;
-  const tempoParaTimeout = 1000; // 1 segundo(s)
+  const tempoParaTimeout = tolerante? 1000 : 0; // 1 segundo(s)
 
   for (let tentativa = 1; tentativa <= maxTentativas; tentativa++) {
     try {
@@ -57,11 +57,6 @@ export async function buscarVoo(flight, day, tolerante) {
       return response.data; // sucesso
 
     } catch (error) {
-      if (error.code === "ECONNABORTED") {
-        console.warn(`⏱️ Timeout (${tempoParaTimeout / 1000}s) ao buscar voo ${flight}`);
-      } else {
-        console.warn(`⚠️ Erro ao buscar voo ${flight}:`, error.message);
-      }
 
       if (tentativa < maxTentativas) {
         console.log("🔁 Tentando novamente...");
@@ -101,13 +96,17 @@ export async function venderPassagem(flight, day, tolerante) {
     return response.data;
 
   } catch (error) {
-    if (error.code === "ECONNABORTED") {
-      console.error("⏱️ Timeout ao tentar registrar a venda (2s).");
-    } else {
-      console.error(`❌ Erro no /sell: ${error.message}`);
-    }
+    const JOGARERRO = false;
+    
+    if (JOGARERRO) throw error; // propaga o erro para o nível superior
 
-    throw error; // propaga o erro para o nível superior
+    if (error.code === "ECONNABORTED") {
+        console.error("⏱️ Timeout ao tentar registrar a venda (2s).");
+      } else {
+        console.error(`❌ Erro no /sell: ${error.message}`);
+      }
+
+    return 0;
   }
 }
 
@@ -152,7 +151,6 @@ setInterval(async () => {
       listaParaBonificacoes = listaParaBonificacoes.filter((b) => b.id !== id);
 
     } catch (error) {
-      console.warn(`⏳ [${id}] Ainda não foi possível reenviar bônus de ${user}: ${error.message}`);
     }
   }));
 }, 5000);
